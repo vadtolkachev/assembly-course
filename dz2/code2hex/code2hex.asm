@@ -27,7 +27,7 @@ drawnumb:	div cl
 		add dh, '0'
 		cmp dh, '9'
 		jbe drawing
-		add dh, 39
+		add dh, 'a'-'9'-1
 
 drawing:	mov ah, 0
 		mov byte ptr es:[bx], dh
