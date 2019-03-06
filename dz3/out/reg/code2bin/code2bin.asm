@@ -11,32 +11,40 @@ REDYELBL	= 0ceh
 SCOLOR		= REDYEL
 RCOLOR		= REDYEL
 NUMBPOS		= (X + 31 + (Y + SHEIGHT/2 - 1 )* 80) * 2
-NUMB		= 01fdh
+NUMB		= 0f3e1h
 
 org 100h
 
-start:		
-include screen.asm
+start:		call drawscreen
+		call code2bin
 
+		mov ax, 4c00h
+		int 21h
+
+
+code2bin	proc
+		mov dh, SCOLOR
 		mov bx, NUMBPOS
 		mov ax, 0h
-		mov al, NUMB
-		mov cl, 02h
-drawnumb:	div cl
-		mov dh, ah
-		add dh, '0'
-		mov ah, 0
-		mov byte ptr es:[bx], dh
-		mov byte ptr es:[bx+1], SCOLOR
+		mov ax, NUMB
+calcnumb:	shr ax, 1
+		mov dl, '0'
+		jnc drawnumb
+		inc dl
+drawnumb:	mov word ptr es:[bx], dx
 		sub bx, 2
-		cmp al, 0
-		jne drawnumb
+		cmp ax, 0
+		jne calcnumb
 
 		mov ah, 0
 		int 16h
 
-		mov ax, 4c00h
-		int 21h
+		ret
+		endp
+
+
+include screen.asm
+
 
 end start
 
