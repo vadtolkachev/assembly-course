@@ -2,3 +2,7 @@
 *.OBJ
 *.MAP
 *.LST
+other
+*.o
+*.lst
+a.out
