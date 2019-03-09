@@ -1,7 +1,6 @@
 section .text
 
 global _start
-
 _start:		mov rax, 1
 		mov rdi, 1
 		mov rsi, msg
@@ -9,10 +8,10 @@ _start:		mov rax, 1
 		syscall
 
 		mov rax, 0x3c
-		xor rdi, rdi
+		mov rdi, 0
 		syscall
 
-section .data
 
-msg:		db "Hello world!", 10
+section .data
+msg:		db "Hello world!", 0xa
 msgLen:		equ $ - msg

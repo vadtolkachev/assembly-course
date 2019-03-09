@@ -6,3 +6,4 @@ other
 *.o
 *.lst
 a.out
+test.x
