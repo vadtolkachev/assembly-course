@@ -166,9 +166,9 @@ ph_cicle:	dec rcx
 		and al, 0xf
 		add byte [rcx], al
 		cmp byte [rcx], '9'
-		jbe next1
+		jbe ph_next
 		add byte [rcx], 'a' - '9' - 1
-next1:		cmp rbx, 0
+ph_next:	cmp rbx, 0
 		jne ph_cicle
 
 		push rcx
