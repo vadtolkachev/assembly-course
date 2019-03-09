@@ -1,9 +1,11 @@
 section .text
 
 global VPuts
+global VPutChar
 global VEndl
 global VPrintBin
-global VPutChar
+global VPrintHex
+global VPrintDec
 
 extern VMemSet
 extern VStrLen
@@ -91,7 +93,7 @@ VEndl:		push rsi
 ;-------------------------------------------------------------------------------
 ;-------------------------------------------------------------------------------
 ;VPrintBin(numb)
-;Destr: rax, rbx, rcx,rdx
+;Destr: rax, rbx, rcx
 ;-------------------------------------------------------------------------------
 ;-------------------------------------------------------------------------------
 VPrintBin:	push rbp
@@ -115,10 +117,10 @@ VPrintBin:	push rbp
 
 pb_cicle:	dec rcx
 		shr rbx, 1
-		jnc next1
+		jnc pb_next
 		inc byte [rcx]
 
-next1:		cmp rbx, 0
+pb_next:	cmp rbx, 0
 		jne pb_cicle
 
 		push rcx
@@ -131,5 +133,101 @@ next1:		cmp rbx, 0
 		pop rbp		
 		ret
 
-section .data
-buf:		equ $
+
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------
+;VPrintHex(numb)
+;Destr: rax, rbx, rcx
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------
+VPrintHex:	push rbp
+		mov rbp, rsp
+		
+		sub rsp, 17			;char str[17]
+		mov byte [rsp+16], 0		;str[16] = '\0'
+
+		mov rax, rsp			;memset(str, '0', 16)
+		push 16
+		push '0'
+		push rax
+		call VMemSet
+		add rsp, 3*8
+
+
+		mov rbx, [rbp+2*8]		;rbx = numb
+
+		mov rcx, rsp			;rcx = rsp+16
+		add rcx, 16
+
+
+ph_cicle:	dec rcx
+		mov al, bl
+		shr rbx, 4
+		and al, 0xf
+		add byte [rcx], al
+		cmp byte [rcx], '9'
+		jbe next1
+		add byte [rcx], 'a' - '9' - 1
+next1:		cmp rbx, 0
+		jne ph_cicle
+
+		push rcx
+		call VPuts
+		add rsp, 8
+		call VEndl
+
+
+		add rsp, 17
+
+		pop rbp	
+		ret
+
+
+
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------
+;VPrintDec(numb)
+;Destr: rax, rbx, rcx,rdx
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------
+VPrintDec:	push rbp
+		mov rbp, rsp
+		push rsi
+		push rdi
+		
+		sub rsp, 21			;char str[21]
+		mov byte [rsp+20], 0		;str[20] = '\0'
+
+		mov rax, rsp			;memset(str, '0', 20)
+		push 20
+		push '0'
+		push rax
+		call VMemSet
+		add rsp, 3*8
+
+
+		mov rax, [rbp+2*8]		;rbx = numb
+
+		mov r8, rsp			;r8 = rsp+20
+		add r8, 20
+		mov rbx, 10
+pd_cicle:	dec r8
+		mov rdx, 0
+		div rbx
+		add byte [r8], dl
+		cmp rax, 0
+		jne pd_cicle
+
+
+		push r8
+		call VPuts
+		add rsp, 8
+		call VEndl
+
+
+		add rsp, 21
+
+		pop rdi
+		pop rsi
+		pop rbp	
+		ret

@@ -8,6 +8,9 @@ extern VStrLen
 extern VEndl
 extern VMemSet
 extern VPutChar
+extern VPrintHex
+extern VPrintDec
+
 
 global _start
 _start:		mov rax, 1
@@ -55,6 +58,17 @@ _start:		mov rax, 1
 
 		push 10
 		call VPutChar
+		add rsp, 8
+
+		mov rax, 3735928559
+		push rax
+		call VPrintHex
+		add rsp, 8
+
+		call VEndl
+
+		push 123456789
+		call VPrintDec
 		add rsp, 8
 
 		mov rax, 0x3c
