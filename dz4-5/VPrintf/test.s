@@ -7,6 +7,7 @@ extern VPuts
 extern VStrLen
 extern VEndl
 extern VMemSet
+extern VPutChar
 
 global _start
 _start:		mov rax, 1
@@ -47,6 +48,14 @@ _start:		mov rax, 1
 		mov rsi, msg
 		mov rdx, msgLen
 		syscall
+
+		push 'h'
+		call VPutChar
+		add rsp, 8
+
+		push 10
+		call VPutChar
+		add rsp, 8
 
 		mov rax, 0x3c
 		mov rdi, 0

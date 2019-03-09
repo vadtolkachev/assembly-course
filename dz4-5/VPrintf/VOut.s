@@ -3,6 +3,7 @@ section .text
 global VPuts
 global VEndl
 global VPrintBin
+global VPutChar
 
 extern VMemSet
 extern VStrLen
@@ -12,15 +13,16 @@ ENDL		equ 10
 
 ;-------------------------------------------------------------------------------
 ;-------------------------------------------------------------------------------
-;VPutChar(char)
+;VPutChar(char) - char should be <= 0xff
 ;Destr: rax, rdx
 ;-------------------------------------------------------------------------------
 ;-------------------------------------------------------------------------------
 VPutChar:	push rsi
 		push rdi
 
+		mov rax, [rsp+3*8]
 		dec rsp
-		mov byte [rsp], 0xa
+		mov [rsp], al
 
 		mov rax, 1
 		mov rdi, 1
