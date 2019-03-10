@@ -2,7 +2,7 @@ ASM=nasm
 ASMFLAGS=-f elf64
 LD=ld
 LDFLAGS=-s
-OBJFILES=test2.o VOut.o VString.o VPrintf.o VIn.o
+OBJFILES=test3.o VOut.o VString.o VPrintf.o VIn.o
 EXEC=test.x
 
 
