@@ -4,9 +4,6 @@ global VPrintf
 
 extern VPrintBin
 extern VPuts
-extern VStrLen
-extern VEndl
-extern VMemSet
 extern VPutChar
 extern VPrintHex
 extern VPrintDec
