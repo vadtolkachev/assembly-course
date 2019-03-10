@@ -1,7 +1,7 @@
 section .text
 
-global VPuts
 global VPutChar
+global VPuts
 global VEndl
 global VPrintBin
 global VPrintHex
