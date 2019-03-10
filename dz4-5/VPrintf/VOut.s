@@ -126,7 +126,6 @@ pb_next:	cmp rbx, 0
 		push rcx
 		call VPuts
 		add rsp, 8
-		call VEndl
 
 		add rsp, 65
 
@@ -174,7 +173,6 @@ ph_next:	cmp rbx, 0
 		push rcx
 		call VPuts
 		add rsp, 8
-		call VEndl
 
 
 		add rsp, 17
@@ -187,7 +185,7 @@ ph_next:	cmp rbx, 0
 ;-------------------------------------------------------------------------------
 ;-------------------------------------------------------------------------------
 ;VPrintDec(numb)
-;Destr: rax, rbx, rcx,rdx
+;Destr: rax, rbx, rcx, rdx, r8
 ;-------------------------------------------------------------------------------
 ;-------------------------------------------------------------------------------
 VPrintDec:	push rbp
@@ -222,7 +220,6 @@ pd_cicle:	dec r8
 		push r8
 		call VPuts
 		add rsp, 8
-		call VEndl
 
 
 		add rsp, 21

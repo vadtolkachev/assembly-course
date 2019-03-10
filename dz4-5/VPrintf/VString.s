@@ -2,6 +2,7 @@ section .text
 
 global VStrLen
 global VMemSet
+global VStrChr
 
 ;-------------------------------------------------------------------------------
 ;-------------------------------------------------------------------------------
@@ -42,3 +43,26 @@ ms_cicle:	mov byte [rax], bl
 		pop rbp
 		ret
 
+
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------
+;VStrChr(str_addr, char), char should be <= 0xff
+;Exit : rbx - res_addr or 0
+;Destr : rax, rcx
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------
+VStrChr:	mov rbx, [rsp+8]
+		mov rax, 0
+
+		mov rcx, [rsp+16]
+
+sc_cicle:	cmp byte [rbx], 0
+		je sc_null
+		cmp byte [rbx], cl
+		je sc_ret
+		inc rbx
+		inc rax
+		jmp sc_cicle
+
+sc_null:	mov rbx, 0
+sc_ret:		ret

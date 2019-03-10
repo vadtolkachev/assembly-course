@@ -10,6 +10,8 @@ extern VMemSet
 extern VPutChar
 extern VPrintHex
 extern VPrintDec
+extern VPrintf
+extern VStrChr
 
 
 global _start
@@ -22,7 +24,7 @@ _start:		mov rax, 1
 		push numb
 		call VPrintBin
 		add rsp, 8
-		;call VEndl
+		call VEndl
 
 		push msg
 		call VStrLen
@@ -71,6 +73,20 @@ _start:		mov rax, 1
 		call VPrintDec
 		add rsp, 8
 
+		call VEndl
+
+
+		mov rax, 255
+		push 'W'
+		push msg
+		push rax
+		push rax
+		push rax
+		push msg2
+		call VPrintf
+		add rsp, 6*8
+
+
 		mov rax, 0x3c
 		mov rdi, 0
 		syscall
@@ -78,7 +94,5 @@ _start:		mov rax, 1
 
 section .data
 msg:		db "Hello world!", 0xa, 0
-msgLen:		equ $ - msg - 1 
-
-;00007ffe541ef7e0
-;00007ffe541ef7d8
+msgLen:		equ $ - msg - 1
+msg2:		db"hey there%%as%ddj %b ch 0x%x sa str - %schar - %c", 0xa, 0
