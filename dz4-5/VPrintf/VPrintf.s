@@ -30,26 +30,26 @@ VPrintf:	push rbp
 		add r9, 2*8
 					
 
-pr_cicle:	mov rax, '%'
-		push rax
-		push qword r8
-		call VStrChr
-		add rsp, 2*8
-
-		cmp rbx, 0
-		je pr_end
-
-		sub rbx, r8
-
-		mov rdx, rbx
-		mov rax, 1
-		mov rdi, 1
-		mov rsi, r8
-		syscall
-
-		add r8, rdx
-		inc r8
-		mov rcx, [r8]
+pr_cicle:	mov rax, '%'		;-------------------------------------------------
+		push rax		;-------------------------------------------------
+		push qword r8		;--find %, print all before %, parse %, repeat,
+		call VStrChr		;--if % not found - print string and ret
+		add rsp, 2*8		;--
+					;--
+		cmp rbx, 0		;--
+		je pr_end		;--
+					;--
+		sub rbx, r8		;--
+					;--
+		mov rdx, rbx		;--
+		mov rax, 1		;--
+		mov rdi, 1		;--
+		mov rsi, r8		;--
+		syscall			;--
+					;--
+		add r8, rdx		;--
+		inc r8			;-------------------------------------------------
+		mov rcx, [r8]		;-------------------------------------------------
 
 		cmp cl, '%'
 		je pr_proc
