@@ -1,12 +1,17 @@
 section .text
 
 extern VPrintf
+extern VGetDec
 
 
 global _start
-_start:
+_start:		call VGetDec
 
-		mov rax, 255
+		push 31
+		push 100
+		push 3802
+		push msg3
+		push msg
 		push 'W'
 		push msg
 		push rax
@@ -23,6 +28,7 @@ _start:
 
 
 section .data
-msg:		db "Hello world!", 0xa, 0
+msg:		db "Hello world!", 0
+msg3:		db "love", 0
 msgLen:		equ $ - msg - 1
-msg2:		db"hey there%%as%ddj %b ch 0x%x sa str - %schar - %c", 0xa, 0
+msg2:		db"hey there", 0xa ,"proc - %%; dec - %d; bin - %b; hex - 0x%x; str - %s; char - %c", 0xa, "again - %s", 0xa, "I %s %x %d %% %c", 0xa, 0

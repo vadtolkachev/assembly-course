@@ -8,6 +8,11 @@ global VGetDec
 extern VMemSet
 
 
+BIN64_STRLEN	equ 64
+HEX64_STRLEN	equ 16
+DEC64_STRLEN	equ 20
+
+
 ;-------------------------------------------------------------------------------
 ;-------------------------------------------------------------------------------
 ;VGetChar()
@@ -43,10 +48,10 @@ VGetChar:	push rsi
 VGetBin:	push rsi
 		push rdi
 		
-		sub rsp, 65
+		sub rsp, BIN64_STRLEN + 1
 
-		mov rax, rsp			;memset(rsp, '\0', 65)
-		push 65
+		mov rax, rsp			;memset(rsp, '\0', BIN64_STRLEN+1)
+		push BIN64_STRLEN+1
 		push 0
 		push rax
 		call VMemSet
@@ -55,7 +60,7 @@ VGetBin:	push rsi
 		mov rax, 0
 		mov rdi, 0
 		mov rsi, rsp
-		mov rdx, 65
+		mov rdx, BIN64_STRLEN+1
 		syscall
 
 
@@ -72,7 +77,7 @@ gb_cicle:	shl rax, 1
 
 
 
-		add rsp, 65
+		add rsp, BIN64_STRLEN+1
 		
 		pop rdi
 		pop rsi
@@ -89,10 +94,10 @@ gb_cicle:	shl rax, 1
 VGetHex:	push rsi
 		push rdi
 		
-		sub rsp, 17
+		sub rsp, HEX64_STRLEN+1
 
-		mov rax, rsp			;memset(rsp, '\0', 17)
-		push 17
+		mov rax, rsp			;memset(rsp, '\0', HEX64_STRLEN+1)
+		push HEX64_STRLEN+1
 		push 0
 		push rax
 		call VMemSet
@@ -101,7 +106,7 @@ VGetHex:	push rsi
 		mov rax, 0
 		mov rdi, 0
 		mov rsi, rsp
-		mov rdx, 17
+		mov rdx, HEX64_STRLEN+1
 		syscall
 
 
@@ -121,7 +126,7 @@ gh_next:	add al, bl
 		jne gh_cicle
 
 
-		add rsp, 17
+		add rsp, HEX64_STRLEN+1
 		
 		pop rdi
 		pop rsi
@@ -138,10 +143,10 @@ gh_next:	add al, bl
 VGetDec:	push rsi
 		push rdi
 		
-		sub rsp, 21
+		sub rsp, DEC64_STRLEN+1
 
-		mov rax, rsp			;memset(rsp, '\0', 21)
-		push 21
+		mov rax, rsp			;memset(rsp, '\0', DEC64_STRLEN+1)
+		push DEC64_STRLEN+1
 		push 0
 		push rax
 		call VMemSet
@@ -150,7 +155,7 @@ VGetDec:	push rsi
 		mov rax, 0
 		mov rdi, 0
 		mov rsi, rsp
-		mov rdx, 21
+		mov rdx, DEC64_STRLEN+1
 		syscall
 
 
@@ -167,7 +172,7 @@ gd_cicle:	mov rdx, 10
 		jne gd_cicle
 
 
-		add rsp, 21
+		add rsp, DEC64_STRLEN+1
 		
 		pop rdi
 		pop rsi
