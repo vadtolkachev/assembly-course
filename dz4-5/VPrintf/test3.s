@@ -19,7 +19,7 @@ _start:		call VGetDec
 		push rax
 		push msg2
 		call VPrintf
-		add rsp, 6*8
+		add rsp, 11*8
 
 
 		mov rax, 0x3c
