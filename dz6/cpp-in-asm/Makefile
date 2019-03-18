@@ -3,7 +3,7 @@ ASMFLAGS=-f elf64 -l $(@:.o=.lst)
 CXX=g++
 CXXFLAGS=-Wall -Wextra
 LD=ld
-LDFLAGS=-dynamic-linker /lib64/ld-linux-x86-64.so.2 /usr/lib/x86_64-linux-gnu/crt1.o /usr/lib/x86_64-linux-gnu/crti.o -lc /usr/lib/x86_64-linux-gnu/crtn.o
+LDFLAGS=-dynamic-linker /lib64/ld-linux-x86-64.so.2 /usr/lib/x86_64-linux-gnu/crt1.o /usr/lib/x86_64-linux-gnu/crti.o /usr/lib/x86_64-linux-gnu/crtn.o -lc
 CXXFILES=print.cpp
 ASMFILES=main.s
 OBJFILES=$(ASMFILES:.s=.s.o) $(CXXFILES:.cpp=.cpp.o)
